@@ -15,7 +15,7 @@ Monitor your ActiveMQ brokers by fetching real-time metrics and visualizing them
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/activemq-monitor.git
+git clone https://github.com/TonySchneider/activemq-monitor.git
 cd activemq-monitor
 ```
 
