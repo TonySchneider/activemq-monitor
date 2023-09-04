@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  broker1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "61616:61616"
+      - "1884:8883"
+      - "8161:8161"
+    environment:
+      ACTIVEMQ_BROKER_NAME: broker1
+      ACTIVEMQ_NETWORK_CONNECTORS: "static:(tcp://broker2:61616,tcp://broker3:61616)"
+
+  broker2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "61617:61616"
+      - "1885:8883"
+      - "8162:8161"
+    environment:
+      ACTIVEMQ_BROKER_NAME: broker2
+      ACTIVEMQ_NETWORK_CONNECTORS: "static:(tcp://broker1:61616,tcp://broker3:61616)"
+
+  broker3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "61618:61616"
+      - "1886:8883"
+      - "8163:8161"
+    environment:
+      ACTIVEMQ_BROKER_NAME: broker3
+      ACTIVEMQ_NETWORK_CONNECTORS: "static:(tcp://broker1:61616,tcp://broker2:61616)"
+
+  haproxy:
+    image: haproxy:latest
+    ports:
+      - "61619:61619"
+      - "8883:8883"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    depends_on:
+      - broker1
+      - broker2
+      - broker3
