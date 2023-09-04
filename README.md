@@ -2,6 +2,8 @@
 
 Monitor your ActiveMQ brokers by fetching real-time metrics and visualizing them in a comprehensive dashboard.
 
+![Functionality Demo](utils/example-graph.gif)
+
 ## Table of Contents
 1. [Installation](#installation)
 2. [Usage](#usage)
